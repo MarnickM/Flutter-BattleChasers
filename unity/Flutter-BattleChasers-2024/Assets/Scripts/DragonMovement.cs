@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DragonMovement : MonoBehaviour
 {
+    [Header("Flying")]
     public float circleRadius = 5.0f;    // Radius for circling
     public float circleSpeed = 2.0f;    // Speed of circling
     public Vector3 circleCenter;        // Center of circling movement (set dynamically)
@@ -22,11 +23,15 @@ public class DragonMovement : MonoBehaviour
     private string behavior = "FlyInCircles"; // Initial behavior
     private Vector3 landingPosition;       // Landing position variable
 
+    [Header("Movement")]
     private float walkSpeed = 2.0f;          // Speed for walking during combat
     public float attackRange = 2.0f;        // Range within which the dragon attacks the player
 
+    [Header("Attack")]
     private float attackCooldown = 4.0f;    // Time between attacks
     private float attackTimer = 0.0f;       // Timer to track cooldown
+    [SerializeField] int power = 50;
+    [SerializeField] AttackCollider attackCollider;
 
     void Start()
     {
@@ -41,6 +46,9 @@ public class DragonMovement : MonoBehaviour
 
         // Start circling behavior
         StartCoroutine(TransitionToFlyToPlayer());
+
+        attackCollider.SetPower(power);
+
     }
 
     void FixedUpdate()
@@ -201,5 +209,17 @@ public class DragonMovement : MonoBehaviour
         // Transition to flying directly toward the player
         behavior = "FlyToPlayer";
         animator.SetTrigger("Glide");
+    }
+
+    private void SetAbleToHit(int ableToHit)
+    {
+        if (0 == ableToHit)
+        {
+            attackCollider.SetIsAttacking(false);
+        }
+        else
+        {
+            attackCollider.SetIsAttacking(true);
+        }
     }
 }
