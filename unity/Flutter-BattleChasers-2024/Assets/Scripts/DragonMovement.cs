@@ -23,7 +23,7 @@ public class DragonMovement : MonoBehaviour
     private Vector3 landingPosition;       // Landing position variable
 
     private float walkSpeed = 2.0f;          // Speed for walking during combat
-    private float attackRange = 2.0f;        // Range within which the dragon attacks the player
+    public float attackRange = 2.0f;        // Range within which the dragon attacks the player
 
     private float attackCooldown = 4.0f;    // Time between attacks
     private float attackTimer = 0.0f;       // Timer to track cooldown
