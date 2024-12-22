@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 using Vuforia;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using static GameManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
 
     private int spawnersFound = 0;
-    private GameObject player;
+    [SerializeField] GameObject player;
 
     [SerializeField] List<GameObject> startTimer = new List<GameObject>();
     [SerializeField] GameObject startScreen;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
                 observer.OnTargetStatusChanged += OnTargetStatusChanged;
             }
         }
+
     }
 
     private void Update() {
@@ -73,33 +75,61 @@ public class GameManager : MonoBehaviour
         {
             GameObject dragon = GameObject.Find("Red_Usurper");
             dragon.GetComponent<Health>().ApplyDamage(1000, transform.position);
-
         }
+
     }
+
+    //private void SpawnDragon()
+    //{
+    //    // activeEnemies.Add(boss);
+    //    // boss.GetComponent<Health>().OnDeath += () => RemoveEnemyFromList(boss);
+    //    Vector3 location = player.transform.position;
+    //    location.y += 30;
+    //    location.z += 150;
+    //    GameObject portalInstance = Instantiate(portal, location, Quaternion.identity);
+    //    StartCoroutine(RemovePortal(portalInstance, location, portalInstance));
+    //}
 
     private void SpawnDragon()
     {
-        // activeEnemies.Add(boss);
-        // boss.GetComponent<Health>().OnDeath += () => RemoveEnemyFromList(boss);
-        Vector3 location = player.transform.position;
-        location.y += 15;
+        // Determine the location the player is looking at
+        Vector3 location = Vector3.zero;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2)); // Ray from center of the screen
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Use the hit point as the base location
+            location = hit.point;
+        }
+        else
+        {
+            // If no hit, use a fallback position in the direction of the gaze
+            location = ray.origin + ray.direction * 150;
+        }
+
+        // Adjust the location by adding offsets
+        location.y += 30; // Raise by 30 units
         GameObject portalInstance = Instantiate(portal, location, Quaternion.identity);
         StartCoroutine(RemovePortal(portalInstance, location, portalInstance));
     }
 
+
     private IEnumerator RemovePortal(GameObject portal, Vector3 location, GameObject portalInstance)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         int randomInt = Random.Range(0, BossesPrefabs.Count);
         GameObject boss = Instantiate(BossesPrefabs[randomInt], location, Quaternion.identity);
-        
-    
+
+        activeEnemies.Add(boss);
+        boss.GetComponent<Health>().OnDeath += () => RemoveEnemyFromList(boss);
+
         ParticleSystem portalParticle = portalInstance.transform.GetChild(1).GetComponent<ParticleSystem>();
         portalParticle.Play();
         yield return new WaitForSeconds(1f);
         portalParticle.Stop();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
     
         Destroy(portal);
     }
@@ -198,17 +228,29 @@ public class GameManager : MonoBehaviour
 
         isRoundInProgress = true;
 
-        int roundMultiplier = currentRound;
-
-        foreach (var enemyType in enemyTypes)
+        // Check if this round is a boss round
+        if (currentRound % 5 == 0)
         {
-            if (spawnPoints.Count == 0) yield break;
+            // Boss round: summon the dragon and skip normal enemies
+            UnityEngine.Debug.Log("Boss round! Summoning dragon.");
+            SpawnDragon(); // Reuse the SpawnDragon method
+        }
+        else
+        {
+            // Normal round: spawn regular enemies
+            int roundMultiplier = currentRound;
 
-            int spawnCount = enemyType.baseSpawnCount * roundMultiplier;
+            foreach (var enemyType in enemyTypes)
+            {
+                if (spawnPoints.Count == 0) yield break;
 
-            StartCoroutine(SpawnEnemies(enemyType, spawnCount));
+                int spawnCount = enemyType.baseSpawnCount * roundMultiplier;
+
+                StartCoroutine(SpawnEnemies(enemyType, spawnCount));
+            }
         }
     }
+
 
     private IEnumerator SpawnEnemies(EnemyType enemyType, int count)
     {
@@ -278,7 +320,14 @@ public class GameManager : MonoBehaviour
                 if (animator != null)
                 {
                     animator.SetTrigger("Win");
-                    enemy.GetComponent<EnemyMovement>().enabled = false;
+                    if(enemy.GetComponent<EnemyMovement>() != null)
+                    {
+                        enemy.GetComponent<EnemyMovement>().enabled = false;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<DragonMovement>().enabled = false;
+                    }
                 }
             }
         }

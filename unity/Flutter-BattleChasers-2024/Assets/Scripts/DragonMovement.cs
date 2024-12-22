@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DragonMovement : MonoBehaviour
 {
+    [Header("Flying")]
     public float circleRadius = 5.0f;    // Radius for circling
     public float circleSpeed = 2.0f;    // Speed of circling
     public Vector3 circleCenter;        // Center of circling movement (set dynamically)
@@ -12,7 +13,7 @@ public class DragonMovement : MonoBehaviour
     public float landDistance = 10.0f;      // Distance to land away from the player
     public float descentSpeed = 1.0f;       // Speed of descent during combat setup
 
-    public Transform player;               // Player reference
+    private Transform player;               // Player reference
 
     private Animator animator;             // Animator for the dragon
     private Rigidbody rb;                  // Rigidbody for movement
@@ -22,14 +23,20 @@ public class DragonMovement : MonoBehaviour
     private string behavior = "FlyInCircles"; // Initial behavior
     private Vector3 landingPosition;       // Landing position variable
 
+    [Header("Movement")]
     private float walkSpeed = 2.0f;          // Speed for walking during combat
-    private float attackRange = 2.0f;        // Range within which the dragon attacks the player
+    public float attackRange = 2.0f;        // Range within which the dragon attacks the player
 
+    [Header("Attack")]
     private float attackCooldown = 4.0f;    // Time between attacks
     private float attackTimer = 0.0f;       // Timer to track cooldown
+    [SerializeField] int power = 50;
+    [SerializeField] AttackCollider attackCollider;
 
     void Start()
     {
+        player = FindObjectOfType<CharacterController>().transform;
+
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -41,6 +48,9 @@ public class DragonMovement : MonoBehaviour
 
         // Start circling behavior
         StartCoroutine(TransitionToFlyToPlayer());
+
+        attackCollider.SetPower(power);
+
     }
 
     void FixedUpdate()
@@ -157,6 +167,11 @@ public class DragonMovement : MonoBehaviour
         // Update the attack timer
         attackTimer -= Time.deltaTime;
 
+        // Rotate to face the player
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 10f);
+
         if (distanceToPlayer > attackRange)
         {
             // Move toward the player
@@ -166,14 +181,16 @@ public class DragonMovement : MonoBehaviour
             Vector3 targetPosition = new Vector3(player.position.x, groundHeight, player.position.z);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, walkSpeed * Time.fixedDeltaTime);
 
-            // Rotate to face the player
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 2f);
+            //// Rotate to face the player
+            //Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            //Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 2f);
         }
         else
         {
             // Stop moving
+            rb.velocity = Vector3.zero; // Stops any residual movement
+            rb.constraints = RigidbodyConstraints.FreezeAll;
             animator.SetBool("Running", false);
 
             // Attack if the cooldown is complete
@@ -194,5 +211,17 @@ public class DragonMovement : MonoBehaviour
         // Transition to flying directly toward the player
         behavior = "FlyToPlayer";
         animator.SetTrigger("Glide");
+    }
+
+    private void SetAbleToHit(int ableToHit)
+    {
+        if (0 == ableToHit)
+        {
+            attackCollider.SetIsAttacking(false);
+        }
+        else
+        {
+            attackCollider.SetIsAttacking(true);
+        }
     }
 }

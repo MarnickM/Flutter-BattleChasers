@@ -75,6 +75,7 @@ unity/Flutter-BattleChasers-2024/.flutter-plugins
 unity/Flutter-BattleChasers-2024/.flutter-plugins-dependencies
 unity/Flutter-BattleChasers-2024/.packages
 unity/Flutter-BattleChasers-2024/build/
+unity/Flutter-BattleChasers-2024/Assets/Editor/Migration
 
 # IDE/Editor-specific
 unity/Flutter-BattleChasers-2024/.idea/
@@ -92,3 +93,9 @@ Thumbs.db
 *.log
 *.tmp
 *.swp
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/6ed53a7f-7027-4117-a2c3-f31b4ecb4e73.vsidx
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/a7f1df35-96ca-4a0a-8dd9-feac33a06885.vsidx
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/d0e531f8-e54c-4f09-9c6e-9e90b47001af.vsidx
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/2802a3b6-c4d9-4d6a-9160-b704f8eac180.vsidx
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/e914c24b-6983-469d-9673-b5b08de58493.vsidx
+unity/Flutter-BattleChasers-2024/.vs/Flutter-BattleChasers-2024/FileContentIndex/c7f04d86-7838-40d8-9446-42912d1a4dc5.vsidx

@@ -75,6 +75,7 @@ public class Health : MonoBehaviour
 
         if (health <= 0 && !isDead)
         {
+            isDead = true;
             StartCoroutine(Die()); 
         }
     }
@@ -86,7 +87,7 @@ public class Health : MonoBehaviour
         if (gameObject.GetComponent<EnemyMovement>() != null || gameObject.GetComponent<DragonMovement>() != null)
         {
             GameObject gameManager = GameObject.Find("GameManager");
-            if(gameObject.GetComponent<DragonMovement>() != null)
+            if (gameObject.GetComponent<DragonMovement>() != null)
             {
                 gameObject.GetComponent<DragonMovement>().enabled = false;
                 gameManager.GetComponent<GameEnd>().AddKilledDragon(gameObject.name);
@@ -116,11 +117,11 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
 
-        isDead = true;
-        yield return new WaitForSeconds(5f); 
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
         // Speel smoke particle effect
     }
+
 
     private void FindScoreObject(string name) 
     {
