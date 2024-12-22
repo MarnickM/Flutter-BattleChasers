@@ -41,3 +41,54 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+
+# Ignore the Unity Library folder
+unity/Flutter-BattleChasers-2024/Library/
+
+# Unity-specific ignore rules
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Unity packages and caches
+[Pp]ackages/
+*.package
+
+# External packages
+unity/Flutter-BattleChasers-2024/Packages/com.ptc.vuforia.engine*.tgz
+
+# Burst Compiler artifacts
+unity/Flutter-BattleChasers-2024/Library/PackageCache/libburst*.dylib
+
+# ArtifactDB
+unity/Flutter-BattleChasers-2024/Library/ArtifactDB
+
+# Ignore Flutter/Dart-specific files (if applicable to this directory structure)
+unity/Flutter-BattleChasers-2024/.dart_tool/
+unity/Flutter-BattleChasers-2024/.flutter-plugins
+unity/Flutter-BattleChasers-2024/.flutter-plugins-dependencies
+unity/Flutter-BattleChasers-2024/.packages
+unity/Flutter-BattleChasers-2024/build/
+
+# IDE/Editor-specific
+unity/Flutter-BattleChasers-2024/.idea/
+unity/Flutter-BattleChasers-2024/.vscode/
+*.iml
+*.sln
+*.csproj
+*.userprefs
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
