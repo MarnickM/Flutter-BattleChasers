@@ -75,6 +75,7 @@ public class Health : MonoBehaviour
 
         if (health <= 0 && !isDead)
         {
+            isDead = true;
             StartCoroutine(Die()); 
         }
     }
@@ -114,7 +115,6 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
 
-        isDead = true;
         yield return new WaitForSeconds(5f); 
         Destroy(gameObject);
         // Speel smoke particle effect

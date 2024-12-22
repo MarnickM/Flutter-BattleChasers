@@ -157,6 +157,11 @@ public class DragonMovement : MonoBehaviour
         // Update the attack timer
         attackTimer -= Time.deltaTime;
 
+        // Rotate to face the player
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 10f);
+
         if (distanceToPlayer > attackRange)
         {
             // Move toward the player
@@ -166,14 +171,16 @@ public class DragonMovement : MonoBehaviour
             Vector3 targetPosition = new Vector3(player.position.x, groundHeight, player.position.z);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, walkSpeed * Time.fixedDeltaTime);
 
-            // Rotate to face the player
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 2f);
+            //// Rotate to face the player
+            //Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            //Quaternion toRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * 2f);
         }
         else
         {
             // Stop moving
+            rb.velocity = Vector3.zero; // Stops any residual movement
+            rb.constraints = RigidbodyConstraints.FreezeAll;
             animator.SetBool("Running", false);
 
             // Attack if the cooldown is complete
