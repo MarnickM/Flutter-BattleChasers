@@ -59,59 +59,61 @@ class _ArPageState extends State<ArPage> {
     _unityWidgetController = controller;
   }
 
-  void onUnityMessage(message) {
-    try {
-      Map<String, dynamic> decodedMessage = json.decode(message);
+void onUnityMessage(message) {
+  try {
+    Map<String, dynamic> decodedMessage = json.decode(message);
 
-      if (decodedMessage.containsKey('score') && decodedMessage.containsKey('killedDragons')) {
-        int score = decodedMessage['score'];
-        List<String> killedDragons = List<String>.from(decodedMessage['killedDragons']);
+    if (decodedMessage.containsKey('score') &&
+        decodedMessage.containsKey('killedDragons') &&
+        decodedMessage.containsKey('count')) {
+      int score = decodedMessage['score'];
+      List<String> killedDragons = List<String>.from(decodedMessage['killedDragons']);
+      int killCount = int.parse(decodedMessage['count']);
 
-        _promptForName(score, killedDragons);
-      }
-    } catch (e) {
-      print('Error parsing message from Unity: $e');
+      _promptForName(score, killedDragons, killCount);
     }
+  } catch (e) {
+    print('Error parsing message from Unity: $e');
   }
+}
 
-  void _promptForName(int score, List<String> killedDragons) {
-    TextEditingController nameController = TextEditingController();
+void _promptForName(int score, List<String> killedDragons, int killCount) {
+  TextEditingController nameController = TextEditingController();
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Game Over!"),
-          content: TextField(
-            controller: nameController,
-            decoration: const InputDecoration(labelText: "Enter your name"),
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Game Over!"),
+        content: TextField(
+          controller: nameController,
+          decoration: const InputDecoration(labelText: "Enter your name"),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              String name = nameController.text.trim();
+              if (name.isNotEmpty) {
+                _saveGameResult(name, score, killCount, killedDragons);
+                Navigator.of(context).pop();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Name cannot be empty!")),
+                );
+              }
+            },
+            child: const Text("Submit"),
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                String name = nameController.text.trim();
-                if (name.isNotEmpty) {
-                  _saveGameResult(name, score, killedDragons);
-                  Navigator.of(context).pop();
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Name cannot be empty!")),
-                  );
-                }
-              },
-              child: const Text("Submit"),
-            ),
-          ],
-        );
-      },
-    );
-  }
+        ],
+      );
+    },
+  );
+}
 
-  Future<void> _saveGameResult(String name, int score, List<String> killedDragons) async {
-    await DatabaseHelper.insertScore(name, score);
-    for (String dragonID in killedDragons) {
-      await DatabaseHelper.insertAchievement(dragonID);
-    }
-  }
+Future<void> _saveGameResult(String name, int score, int killCount, List<String> killedDragons) async {
+  await DatabaseHelper.insertUser(name, score, killCount, killedDragons);
+}
+
+
 }
