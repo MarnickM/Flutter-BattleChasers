@@ -13,7 +13,7 @@ public class DragonMovement : MonoBehaviour
     public float landDistance = 10.0f;      // Distance to land away from the player
     public float descentSpeed = 1.0f;       // Speed of descent during combat setup
 
-    public Transform player;               // Player reference
+    private Transform player;               // Player reference
 
     private Animator animator;             // Animator for the dragon
     private Rigidbody rb;                  // Rigidbody for movement
@@ -35,6 +35,8 @@ public class DragonMovement : MonoBehaviour
 
     void Start()
     {
+        player = FindObjectOfType<CharacterController>().transform;
+
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
