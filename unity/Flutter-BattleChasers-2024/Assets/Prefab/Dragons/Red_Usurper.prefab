@@ -430,7 +430,7 @@ RectTransform:
   m_Father: {fileID: 1685647791881304083}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -486,7 +486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 139696, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400278, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1913,9 +1913,9 @@ MonoBehaviour:
   circleRadius: 5
   circleSpeed: 2
   circleCenter: {x: 0, y: 0, z: 0}
-  flyToPlayerSpeed: 10
-  landDistance: 30
-  descentSpeed: 2
+  flyToPlayerSpeed: 20
+  landDistance: 50
+  descentSpeed: 5
   attackRange: 7.5
   power: 150
   attackCollider: {fileID: 5109980158660583775}

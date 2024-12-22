@@ -79,20 +79,45 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //private void SpawnDragon()
+    //{
+    //    // activeEnemies.Add(boss);
+    //    // boss.GetComponent<Health>().OnDeath += () => RemoveEnemyFromList(boss);
+    //    Vector3 location = player.transform.position;
+    //    location.y += 30;
+    //    location.z += 150;
+    //    GameObject portalInstance = Instantiate(portal, location, Quaternion.identity);
+    //    StartCoroutine(RemovePortal(portalInstance, location, portalInstance));
+    //}
+
     private void SpawnDragon()
     {
-        // activeEnemies.Add(boss);
-        // boss.GetComponent<Health>().OnDeath += () => RemoveEnemyFromList(boss);
-        Vector3 location = player.transform.position;
-        location.y += 30;
-        location.z += 150;
+        // Determine the location the player is looking at
+        Vector3 location = Vector3.zero;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2)); // Ray from center of the screen
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Use the hit point as the base location
+            location = hit.point;
+        }
+        else
+        {
+            // If no hit, use a fallback position in the direction of the gaze
+            location = ray.origin + ray.direction * 150;
+        }
+
+        // Adjust the location by adding offsets
+        location.y += 30; // Raise by 30 units
         GameObject portalInstance = Instantiate(portal, location, Quaternion.identity);
         StartCoroutine(RemovePortal(portalInstance, location, portalInstance));
     }
 
+
     private IEnumerator RemovePortal(GameObject portal, Vector3 location, GameObject portalInstance)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         int randomInt = Random.Range(0, BossesPrefabs.Count);
         GameObject boss = Instantiate(BossesPrefabs[randomInt], location, Quaternion.identity);
@@ -104,7 +129,7 @@ public class GameManager : MonoBehaviour
         portalParticle.Play();
         yield return new WaitForSeconds(1f);
         portalParticle.Stop();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
     
         Destroy(portal);
     }
