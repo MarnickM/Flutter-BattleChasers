@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'leaderboard_page.dart';
 import 'achievements_page.dart';
-import '../widgets/home_content.dart';
+import '../pages/ar_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const HomeContent(),
+    const _HomeContent(), // Updated HomeContent with Play button and logo
     const LeaderboardPage(),
     const AchievementsPage(),
   ];
@@ -45,6 +45,39 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.emoji_events),
             label: 'Achievements',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomeContent extends StatelessWidget {
+  const _HomeContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Logo Image
+          Image.asset(
+            'assets/logo.png', // Update this path to match your logo file's location
+            width: 150,
+            height: 150,
+          ),
+          const SizedBox(height: 20),
+          // Play Button
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the ARPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ArPage()),
+              );
+            },
+            child: const Text('Play'),
           ),
         ],
       ),
