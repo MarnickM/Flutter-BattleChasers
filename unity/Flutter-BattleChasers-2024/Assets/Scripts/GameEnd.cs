@@ -28,7 +28,7 @@ public class GameEnd : MonoBehaviour
         return endScore;
     }
 
-    void IncreaseKillCount(){
+    public void IncreaseKillCount(){
         int killCountInt = int.Parse(killCount);
         killCountInt++;
         this.killCount = killCountInt.ToString();

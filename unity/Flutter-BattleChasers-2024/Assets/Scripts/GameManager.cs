@@ -262,6 +262,8 @@ public class GameManager : MonoBehaviour
         GameObject endScoreObject = GameObject.Find("End Score");
         endScoreObject.GetComponent<Text>().text = score.ToString();
 
+        gameObject.GetComponent<GameEnd>().SetEndScore(score);
+
         foreach (GameObject enemy in activeEnemies)
         {
             if (enemy != null)
