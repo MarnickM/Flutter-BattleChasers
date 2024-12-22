@@ -8,6 +8,7 @@ public class GameEnd : MonoBehaviour
 {
     private int endScore;
     private List<string> killedDragons = new List<string>(); // Store unique dragon IDs
+    public string killCount;
     
 
     public void ExitGame()
@@ -25,6 +26,12 @@ public class GameEnd : MonoBehaviour
     public int GetEndScore()
     {
         return endScore;
+    }
+
+    void IncreaseKillCount(){
+        int killCountInt = int.Parse(killCount);
+        killCountInt++;
+        this.killCount = killCountInt.ToString();
     }
 
     public void AddKilledDragon(string dragonID)
@@ -49,7 +56,8 @@ public class GameEnd : MonoBehaviour
         var results = new
         {
             score = endScore,
-            killedDragons = new List<string>(killedDragons)
+            killedDragons = new List<string>(killedDragons),
+            count = killCount
         };
 
         // Convert to JSON
