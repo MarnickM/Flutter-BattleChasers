@@ -86,16 +86,18 @@ public class Health : MonoBehaviour
 
         if (gameObject.GetComponent<EnemyMovement>() != null || gameObject.GetComponent<DragonMovement>() != null)
         {
-            if(gameObject.GetComponent<DragonMovement>() != null)
+            GameObject gameManager = GameObject.Find("GameManager");
+            if (gameObject.GetComponent<DragonMovement>() != null)
             {
                 gameObject.GetComponent<DragonMovement>().enabled = false;
-                GameObject gameManager = GameObject.Find("GameManager");
                 gameManager.GetComponent<GameEnd>().AddKilledDragon(gameObject.name);
             }
             else
             {
                 gameObject.GetComponent<EnemyMovement>().enabled = false;
             }
+            gameManager.GetComponent<GameEnd>().IncreaseKillCount();
+
 
             GameObject scoreObject = GameObject.Find("Points");
             scoreObject.GetComponent<Text>().text = (int.Parse(scoreObject.GetComponent<Text>().text) + score).ToString();
@@ -115,10 +117,11 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
 
-        yield return new WaitForSeconds(5f); 
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
         // Speel smoke particle effect
     }
+
 
     private void FindScoreObject(string name) 
     {

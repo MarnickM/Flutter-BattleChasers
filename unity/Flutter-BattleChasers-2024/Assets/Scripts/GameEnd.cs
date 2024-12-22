@@ -9,7 +9,6 @@ public class GameEnd : MonoBehaviour
     private int endScore;
     private List<string> killedDragons = new List<string>(); // Store unique dragon IDs
     public string killCount;
-    
 
     public void ExitGame()
     {
@@ -28,7 +27,8 @@ public class GameEnd : MonoBehaviour
         return endScore;
     }
 
-    void IncreaseKillCount(){
+    public void IncreaseKillCount()
+    {
         int killCountInt = int.Parse(killCount);
         killCountInt++;
         this.killCount = killCountInt.ToString();
@@ -67,6 +67,3 @@ public class GameEnd : MonoBehaviour
         UnityMessageManager.Instance.SendMessageToFlutter(jsonResults);
     }
 }
-
-
-
