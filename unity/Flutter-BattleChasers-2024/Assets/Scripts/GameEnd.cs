@@ -10,10 +10,10 @@ public class GameEnd : MonoBehaviour
     private List<string> killedDragons = new List<string>(); // Store unique dragon IDs
     public string killCount;
 
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
+    // public void ExitGame()
+    // {
+    //     Application.Quit();
+    // }
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
