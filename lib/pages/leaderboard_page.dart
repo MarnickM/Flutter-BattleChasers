@@ -5,7 +5,7 @@ class LeaderboardPage extends StatelessWidget {
   const LeaderboardPage({super.key});
 
   Future<List<Map<String, dynamic>>> fetchScores() async {
-    return await DatabaseHelper.fetchScores();
+    return await DatabaseHelper.fetchAllUsers();
   }
 
   @override
@@ -26,6 +26,7 @@ class LeaderboardPage extends StatelessWidget {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             final scores = snapshot.data ?? [];
+
             return ListView.builder(
               padding: const EdgeInsets.all(16.0),
               itemCount: scores.length,
@@ -36,6 +37,10 @@ class LeaderboardPage extends StatelessWidget {
                   color: const Color(0xFF2C3E50),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                    leading: Text(
+                      '#${index + 1}', // Ranking based on position in the sorted list
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.amberAccent),
+                    ),
                     title: Text(
                       score['username'] ?? 'Player',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
