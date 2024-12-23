@@ -8,6 +8,7 @@ using Vuforia;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using static GameManager;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;
 
     private int spawnersFound = 0;
-    [SerializeField] GameObject player;
+    private GameObject player;
 
     [SerializeField] List<GameObject> startTimer = new List<GameObject>();
     [SerializeField] GameObject startScreen;
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        int randomInt = Random.Range(0, BossesPrefabs.Count);
+        int randomInt = UnityEngine.Random.Range(0, BossesPrefabs.Count);
         GameObject boss = Instantiate(BossesPrefabs[randomInt], location, Quaternion.identity);
 
         activeEnemies.Add(boss);
@@ -239,6 +240,7 @@ public class GameManager : MonoBehaviour
         {
             // Normal round: spawn regular enemies
             int roundMultiplier = currentRound;
+            Console.WriteLine(roundMultiplier);
 
             foreach (var enemyType in enemyTypes)
             {

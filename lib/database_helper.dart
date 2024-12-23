@@ -14,20 +14,23 @@ class DatabaseHelper {
     );
   }
 
-static Future<void> insertUser(String username, int score, int killCount, List<String> dragonsKilled) async {
-  final db = await _openDatabase();
-  await db.insert(
-    'users',
-    {
-      'username': username,
-      'score': score,
-      'killcount': killCount,
-      'dragonsKilled': dragonsKilled.join(','), // Convert list to a comma-separated string
-    },
-    conflictAlgorithm: ConflictAlgorithm.replace, // Replace existing record if username already exists
-  );
-}
-
+  static Future<void> insertUser(String username, int score, int killCount,
+      List<String> dragonsKilled) async {
+    final db = await _openDatabase();
+    await db.insert(
+      'users',
+      {
+        'username': username,
+        'score': score,
+        'killcount': killCount,
+        'dragonsKilled':
+            dragonsKilled.join(','), // Convert list to a comma-separated string
+      },
+      conflictAlgorithm: ConflictAlgorithm
+          .replace, // Replace existing record if username already exists
+    );
+    print('User $username inserted');
+  }
 
   static Future<List<Map<String, dynamic>>> fetchAllUsers() async {
     final db = await _openDatabase();

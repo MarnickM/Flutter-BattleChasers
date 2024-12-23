@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FlutterUnityIntegration;
+using System;
 
 public class GameEnd : MonoBehaviour
 {
     private int endScore;
     private List<string> killedDragons = new List<string>(); // Store unique dragon IDs
-    public string killCount;
+    public int killCount;
 
     // public void ExitGame()
     // {
@@ -28,9 +29,12 @@ public class GameEnd : MonoBehaviour
     }
 
     public void IncreaseKillCount(){
-        int killCountInt = int.Parse(killCount);
-        killCountInt++;
-        this.killCount = killCountInt.ToString();
+        //Console.WriteLine("KillCount:" + killCount);
+
+        //int killCountInt = int.Parse(killCount);
+        //killCountInt++;
+        //this.killCount = killCountInt.ToString();
+        killCount++;
     }
 
     public void AddKilledDragon(string dragonID)
@@ -56,7 +60,7 @@ public class GameEnd : MonoBehaviour
         {
             score = endScore,
             killedDragons = new List<string>(killedDragons),
-            count = killCount
+            count = killCount.ToString()
         };
 
         // Convert to JSON
