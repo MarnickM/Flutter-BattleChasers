@@ -29,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     //public float heightProjectile;
 
+    public bool debug = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -42,13 +43,26 @@ public class EnemyMovement : MonoBehaviour
         if(attackCollider != null) {
             attackCollider.SetPower(power);
         }
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
     }
 
-        void Update()
-    {
+        void Update(){
+
         if (playerTransform == null) return;
 
         LookAtPlayer(); // Ensure the enemy always faces the player
+
+        // Match the enemy's Y-position with the player's Y-position
+        Vector3 position = transform.position;
+        position.y = playerTransform.position.y;
+        transform.position = position;
+
+        if (debug) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
         attackTimer -= Time.deltaTime;

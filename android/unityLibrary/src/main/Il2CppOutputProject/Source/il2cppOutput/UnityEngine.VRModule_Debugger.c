@@ -47,22 +47,22 @@ static const Il2CppMethodExecutionContextInfoIndex g_methodExecutionContextInfoI
 IL2CPP_EXTERN_C Il2CppSequencePoint g_sequencePointsUnityEngine_VRModule[];
 Il2CppSequencePoint g_sequencePointsUnityEngine_VRModule[16] = 
 {
-	{ 80254, 0, 0, 0, 0, 0, -1, kSequencePointKind_Normal, 0, 0 },
-	{ 80254, 0, 0, 0, 0, 0, 16777215, kSequencePointKind_Normal, 0, 1 },
-	{ 80254, 1, 111, 111, 13, 14, 0, kSequencePointKind_Normal, 0, 2 },
-	{ 80254, 1, 112, 112, 17, 52, 1, kSequencePointKind_Normal, 0, 3 },
-	{ 80254, 1, 112, 112, 17, 52, 1, kSequencePointKind_StepOut, 0, 4 },
-	{ 80254, 1, 113, 113, 13, 14, 9, kSequencePointKind_Normal, 0, 5 },
-	{ 80260, 0, 0, 0, 0, 0, -1, kSequencePointKind_Normal, 0, 6 },
-	{ 80260, 0, 0, 0, 0, 0, 16777215, kSequencePointKind_Normal, 0, 7 },
-	{ 80260, 1, 209, 209, 9, 10, 0, kSequencePointKind_Normal, 0, 8 },
-	{ 80260, 1, 210, 210, 13, 38, 1, kSequencePointKind_Normal, 0, 9 },
-	{ 80260, 1, 210, 210, 0, 0, 10, kSequencePointKind_Normal, 0, 10 },
-	{ 80260, 1, 211, 211, 13, 14, 13, kSequencePointKind_Normal, 0, 11 },
-	{ 80260, 1, 212, 212, 17, 48, 14, kSequencePointKind_Normal, 0, 12 },
-	{ 80260, 1, 212, 212, 17, 48, 20, kSequencePointKind_StepOut, 0, 13 },
-	{ 80260, 1, 213, 213, 13, 14, 26, kSequencePointKind_Normal, 0, 14 },
-	{ 80260, 1, 214, 214, 9, 10, 27, kSequencePointKind_Normal, 0, 15 },
+	{ 80253, 0, 0, 0, 0, 0, -1, kSequencePointKind_Normal, 0, 0 },
+	{ 80253, 0, 0, 0, 0, 0, 16777215, kSequencePointKind_Normal, 0, 1 },
+	{ 80253, 1, 111, 111, 13, 14, 0, kSequencePointKind_Normal, 0, 2 },
+	{ 80253, 1, 112, 112, 17, 52, 1, kSequencePointKind_Normal, 0, 3 },
+	{ 80253, 1, 112, 112, 17, 52, 1, kSequencePointKind_StepOut, 0, 4 },
+	{ 80253, 1, 113, 113, 13, 14, 9, kSequencePointKind_Normal, 0, 5 },
+	{ 80259, 0, 0, 0, 0, 0, -1, kSequencePointKind_Normal, 0, 6 },
+	{ 80259, 0, 0, 0, 0, 0, 16777215, kSequencePointKind_Normal, 0, 7 },
+	{ 80259, 1, 209, 209, 9, 10, 0, kSequencePointKind_Normal, 0, 8 },
+	{ 80259, 1, 210, 210, 13, 38, 1, kSequencePointKind_Normal, 0, 9 },
+	{ 80259, 1, 210, 210, 0, 0, 10, kSequencePointKind_Normal, 0, 10 },
+	{ 80259, 1, 211, 211, 13, 14, 13, kSequencePointKind_Normal, 0, 11 },
+	{ 80259, 1, 212, 212, 17, 48, 14, kSequencePointKind_Normal, 0, 12 },
+	{ 80259, 1, 212, 212, 17, 48, 20, kSequencePointKind_StepOut, 0, 13 },
+	{ 80259, 1, 213, 213, 13, 14, 26, kSequencePointKind_Normal, 0, 14 },
+	{ 80259, 1, 214, 214, 9, 10, 27, kSequencePointKind_Normal, 0, 15 },
 };
 #else
 extern Il2CppSequencePoint g_sequencePointsUnityEngine_VRModule[];

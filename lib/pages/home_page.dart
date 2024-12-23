@@ -63,7 +63,7 @@ class _HomeContent extends StatelessWidget {
         children: [
           // Logo Image
           Image.asset(
-            'assets/images/logo.png', // Update this path to match your logo file's location
+            'assets/images/logo.png',
             width: 150,
             height: 150,
           ),

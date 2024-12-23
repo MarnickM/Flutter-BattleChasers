@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -83,21 +84,24 @@ public class Health : MonoBehaviour
     private IEnumerator Die()
     {
         animator.SetBool("IsDead", true);
-
+        //Console.WriteLine("1");
         if (gameObject.GetComponent<EnemyMovement>() != null || gameObject.GetComponent<DragonMovement>() != null)
         {
+            //Console.WriteLine("2");
             GameObject gameManager = GameObject.Find("GameManager");
             if (gameObject.GetComponent<DragonMovement>() != null)
             {
+                //Console.WriteLine("3");
                 gameObject.GetComponent<DragonMovement>().enabled = false;
                 gameManager.GetComponent<GameEnd>().AddKilledDragon(gameObject.name);
             }
             else
             {
+                //Console.WriteLine("4");
                 gameObject.GetComponent<EnemyMovement>().enabled = false;
             }
             gameManager.GetComponent<GameEnd>().IncreaseKillCount();
-
+            //Console.WriteLine("5");
 
             GameObject scoreObject = GameObject.Find("Points");
             scoreObject.GetComponent<Text>().text = (int.Parse(scoreObject.GetComponent<Text>().text) + score).ToString();
@@ -109,15 +113,19 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<CharacterController>().enabled = false;
             FindAnyObjectByType<GameManager>().TriggerEnemiesWinAnimation();
         }
+        //Console.WriteLine("6");
         gameObject.GetComponent<BoxCollider>().enabled = false;
 
         if (gameObject.GetComponent<Rigidbody>() != null)
         {
+            //Console.WriteLine("7");
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
 
+        //Console.WriteLine("8");
         yield return new WaitForSeconds(5f);
+        //Console.WriteLine("9");
         Destroy(gameObject);
         // Speel smoke particle effect
     }

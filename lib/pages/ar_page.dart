@@ -146,6 +146,7 @@ class _ArPageState extends State<ArPage> {
   Future<void> _saveGameResult(
       String name, int score, int killCount, List<String> killedDragons) async {
     await DatabaseHelper.insertUser(name, score, killCount, killedDragons);
-    print('Game result saved: $name, Score: $score, Kill Count: $killCount');
+    print(
+        'Game result saved: $name, Score: $score, Kill Count: $killCount, Killed Dragons: $killedDragons');
   }
 }
