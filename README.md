@@ -1,16 +1,32 @@
-# battle_chasers
+# Battle Chasers - Flutter Unity Game
 
-A new Flutter project.
+**Battle Chasers** is an exciting mobile game built with **Flutter** and **Unity**, where you step into the shoes of a brave knight battling enemies like zombies, skeletons, and even dragons! With stunning 3D graphics and immersive gameplay, Battle Chasers offers a thrilling action-packed experience.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Knight Character**: Play as a powerful knight equipped with swords and shields.
+- **Epic Battles**: Fight against zombies, skeletons, and dragons in intense combat.
+- **Unity-Powered Graphics**: High-quality 3D visuals for an immersive experience.
+- **Flutter UI**: Smooth and responsive user interface for seamless navigation.
+- **Dynamic Gameplay**: Engage in fast-paced battles with unique enemy behaviors.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo Video
+
+Check out the gameplay demo on YouTube:  
+[Watch Demo](https://youtu.be/wIFWYw5tB5s)
+
+---
+
+## Technologies Used
+
+- **Flutter**: For the app's user interface and navigation.
+- **Unity**: For 3D game mechanics, animations, and enemy AI.
+- **C#**: For scripting game logic in Unity.
+
+---
+
+**Gear up, brave knight, and embark on your quest to defeat the forces of evil! ⚔️🐉**
